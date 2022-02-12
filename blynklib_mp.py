@@ -11,6 +11,8 @@ import ustruct as struct
 import uselect as select
 from micropython import const
 
+from utility import *
+
 ticks_ms = time.ticks_ms
 sleep_ms = time.sleep_ms
 
@@ -372,15 +374,39 @@ class Blynk(Connection):
             except Exception as g_exc:
                 self.log(g_exc)
 
-def connect(ssid, password, auth_key, server='blynk-cloud.com', port=80):
+def connect_wifi(self, ssid, password, wait_for_connected=True):
+    say('Connecting to WiFi...')
     station = network.WLAN(network.STA_IF)
-    station.active(True)
-    station.connect(ssid, password)
+    if station.active():
+        station.active(False)
+        time.sleep_ms(500)
 
-    while station.isconnected() == False:
-        time.sleep_ms(10)
+    for i in range(5):
+        try:
+            station.active(True)
+            station.connect(ssid, password)
+            break
+        except OSError:
+            station.active(False)
+            time.sleep_ms(500)
+            if i == 4:
+                say('Failed to connect to WiFi')
+                raise Exception('Failed to connect to WiFi')
 
-    print('Connected to Wifi')
-    print('IP address: ')
-    print(station.ifconfig())
+    if wait_for_connected:
+        count = 0
+        while station.isconnected() == False:
+            count = count + 1
+            if count > 150:
+                say('Failed to connect to WiFi')
+                raise Exception('Failed to connect to WiFi')
+            time.sleep_ms(100)
+
+        say('Wifi connected. IP:' + station.ifconfig()[0])
+
+def wifi_connected():
+    station = network.WLAN(network.STA_IF)
+    return station.isconnected()
+
+def connect_blynk(auth_key, server='blynk-cloud.com', port=80):
     return Blynk(auth_key, server=server, port=port)

@@ -1,14 +1,26 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category id="ble" name="BLYNK" colour="#00A06B" icon="mobile alternate">
-	  <block type="yolobit_blynk_connect">
-      <value name="wifi">
-          <shadow type="text"><field name="TEXT">wifi</field></shadow>
+    <block type="yolobit_blynk_connect_wifi">
+      <value name="WIFI">
+        <shadow type="text">
+          <field name="TEXT">wifi</field>
+        </shadow>
       </value>
-      <value name="password">
-          <shadow type="text"><field name="TEXT">password</field></shadow>
+      <value name="PASSWORD">
+        <shadow type="text">
+          <field name="TEXT">password</field>
+        </shadow>
       </value>
+    </block>
+    <block type="yolobit_blynk_connect">
       <value name="auth_key">
-          <shadow type="text"><field name="TEXT">mã xác thực</field></shadow>
+          <shadow type="text"><field name="TEXT"></field></shadow>
+      </value>
+      <value name="server">
+          <shadow type="text"><field name="TEXT">blynk-cloud.com</field></shadow>
+      </value>
+      <value name="port">
+          <shadow type="math_number"><field name="NUM">80</field></shadow>
       </value>
     </block>
     <block type="yolobit_blynk_app_pin_write"></block>

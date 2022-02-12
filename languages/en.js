@@ -1,4 +1,4 @@
-Blockly.Msg.YOLOBIT_BLYNK_CONNECT_MESSAGE0 = "connect wifi %1 password %2 with authentication key %3 %4"
+Blockly.Msg.YOLOBIT_BLYNK_CONNECT_MESSAGE0 = "connect Blynk with authentication key %1 server %2 port %3 %4"
 Blockly.Msg.YOLOBIT_BLYNK_CONNECT_TOOLTIP = ""
 Blockly.Msg.YOLOBIT_BLYNK_CONNECT_HELPURL = ""
 Blockly.Msg.YOLOBIT_BLYNK_APP_PIN_WRITE_MESSAGE0 = "when app update %1 for %2 %3 %4"

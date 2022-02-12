@@ -1,3 +1,22 @@
+Blockly.Blocks["yolobit_blynk_connect_wifi"] = {
+  init: function () {
+    this.jsonInit({
+      colour: "#00A06B",
+      nextStatement: null,
+      tooltip: "Kết nối vào mạng WiFi",
+      message0: "kết nối WiFi %1 %2 mật khẩu %3 %4",
+      previousStatement: null,
+      args0: [
+        { type: "input_dummy" },
+        { type: "input_value", name: "WIFI", check: "String" },
+        { type: "input_dummy" },
+        { type: "input_value", name: "PASSWORD", check: "String" },
+      ],
+      helpUrl: "",
+    });
+  },
+};
+
 Blockly.Blocks['yolobit_blynk_connect'] = {
   init: function() {
     this.jsonInit({
@@ -7,15 +26,16 @@ Blockly.Blocks['yolobit_blynk_connect'] = {
       "args0": [
         {
           "type": "input_value",
-          "name": "wifi"
-        },
-        {
-          "type": "input_value",
-          "name": "password"
-        },
-        {
-          "type": "input_value",
           "name": "auth_key"
+        },
+        {
+          "type": "input_value",
+          "name": "server"
+        },
+        {
+          "type": "input_value",
+          "name": "port",
+          "check": "Number",
         },
         {
           "type": "input_dummy"
@@ -29,6 +49,9 @@ Blockly.Blocks['yolobit_blynk_connect'] = {
       "helpUrl": 
         Blockly.Msg.YOLOBIT_BLYNK_CONNECT_HELPURL
     });
+  },
+  getDeveloperVars: function() {
+    return ['blynk'];
   }
 };
 
@@ -300,16 +323,29 @@ Blockly.Python.addReservedWords('blynklib_mp');
 Blockly.Python.addReservedWords('network');
 Blockly.Python.addReservedWords('time');
 
+// Any imports need to be reserved words
+Blockly.Python.addReservedWords('blynk');
+
+Blockly.Python['yolobit_blynk_connect_wifi'] = function(block) {
+  Blockly.Python.definitions_['import_blynklib_mp'] = 'from blynklib_mp import *';
+  var value_wifi = Blockly.Python.valueToCode(block, 'WIFI', Blockly.Python.ORDER_ATOMIC);
+  var value_password = Blockly.Python.valueToCode(block, 'PASSWORD', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'connect_wifi(' + value_wifi + ', ' + value_password + ')\n';
+  return code;
+};
+
 Blockly.Python['yolobit_blynk_connect'] = function(block) {
   Blockly.Python.definitions_['import_blynklib_mp'] = 'from blynklib_mp import *';
   Blockly.Python.definitions_['import_network'] = 'from network import *';
   Blockly.Python.definitions_['import_time'] = 'from time import *';
-  var value_wifi = Blockly.Python.valueToCode(block, 'wifi', Blockly.Python.ORDER_ATOMIC);
-  var value_password = Blockly.Python.valueToCode(block, 'password', Blockly.Python.ORDER_ATOMIC);
   var value_auth_key = Blockly.Python.valueToCode(block, 'auth_key', Blockly.Python.ORDER_ATOMIC);
+  var value_server = Blockly.Python.valueToCode(block, 'server', Blockly.Python.ORDER_ATOMIC);
+  var value_port = Blockly.Python.valueToCode(block, 'port', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  Blockly.Python.definitions_['import_connect'] = 'blynk = connect('+ value_wifi + ' , ' + value_password +', ' + value_auth_key + ')';
-  return '';
+  Blockly.Python.definitions_['import_connect_blynk'] = 'blynk = Blynk('+ value_auth_key + ' , server=' + value_server +', port=' + value_port + ')';
+  var code = 'blynk.connect()';
+  return code;
 };
 
 Blockly.Python['yolobit_blynk_app_pin_write'] = function(block) {
