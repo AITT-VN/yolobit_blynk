@@ -374,7 +374,7 @@ class Blynk(Connection):
             except Exception as g_exc:
                 self.log(g_exc)
 
-def connect_wifi(self, ssid, password, wait_for_connected=True):
+def connect_wifi(ssid, password, wait_for_connected=True):
     say('Connecting to WiFi...')
     station = network.WLAN(network.STA_IF)
     if station.active():
