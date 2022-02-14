@@ -1,2 +1,2 @@
-# Yolo:Bit Blynk
-Extension library for Blynk support for Yolo:Bit.
+# Mục mở rộng để làm việc với Blynk app
+

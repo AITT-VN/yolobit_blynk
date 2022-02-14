@@ -327,7 +327,7 @@ Blockly.Python.addReservedWords('time');
 Blockly.Python.addReservedWords('blynk');
 
 Blockly.Python['yolobit_blynk_connect_wifi'] = function(block) {
-  Blockly.Python.definitions_['import_blynklib_mp'] = 'from blynklib_mp import *';
+  Blockly.Python.definitions_['import_blynklib'] = 'from blynklib import *';
   var value_wifi = Blockly.Python.valueToCode(block, 'WIFI', Blockly.Python.ORDER_ATOMIC);
   var value_password = Blockly.Python.valueToCode(block, 'PASSWORD', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
@@ -336,7 +336,7 @@ Blockly.Python['yolobit_blynk_connect_wifi'] = function(block) {
 };
 
 Blockly.Python['yolobit_blynk_connect'] = function(block) {
-  Blockly.Python.definitions_['import_blynklib_mp'] = 'from blynklib_mp import *';
+  Blockly.Python.definitions_['import_blynklib'] = 'from blynklib import *';
   Blockly.Python.definitions_['import_network'] = 'from network import *';
   Blockly.Python.definitions_['import_time'] = 'from time import *';
   var value_auth_key = Blockly.Python.valueToCode(block, 'auth_key', Blockly.Python.ORDER_ATOMIC);
@@ -344,7 +344,7 @@ Blockly.Python['yolobit_blynk_connect'] = function(block) {
   var value_port = Blockly.Python.valueToCode(block, 'port', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   Blockly.Python.definitions_['import_connect_blynk'] = 'blynk = Blynk('+ value_auth_key + ' , server=' + value_server +', port=' + value_port + ')';
-  var code = 'blynk.connect()';
+  var code = 'blynk.connect()\n';
   return code;
 };
 

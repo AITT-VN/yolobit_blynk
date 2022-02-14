@@ -2,7 +2,7 @@
     "name": "Blynk",
     "description": "Mục mở rộng hỗ trợ sử dụng phần mềm Blynk",
     "libs": [
-        "blynklib_mp.py"
+        "blynklib.py"
     ],
     "blocks": [
         "definition.js"
